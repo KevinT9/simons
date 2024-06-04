@@ -1,7 +1,8 @@
-package dlk.dev.consultatsa.config;
+package com.dev.simons.config;
 
-import dlk.dev.consultatsa.model.UsuarioEntity;
-import dlk.dev.consultatsa.repository.UsuarioRepository;
+
+import com.dev.simons.model.Usuario;
+import com.dev.simons.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,20 +20,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.usuarioRepository = usuarioRepository;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UsuarioEntity usuario = usuarioRepository.findByUsername(username);
-//        if (usuario == null) {
-//            throw new UsernameNotFoundException("Usuario no encontrado");
-//        }
-//        return User.withUsername(usuario.getUsername())
-//                .password(usuario.getPassword())
-//                .roles(usuario.getRole())
-//                .build();
-//    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UsuarioEntity usuario = usuarioRepository.findByEmail(username);
+        Usuario usuario = usuarioRepository.findByUsername(username);
         if (usuario == null) {
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
