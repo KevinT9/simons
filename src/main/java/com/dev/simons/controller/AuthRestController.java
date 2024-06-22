@@ -10,27 +10,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;
 
-    public LoginController(AuthenticationManager authenticationManager) {
+    public AuthRestController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest) {
-        Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.username(), loginRequest.password());
-        Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest) {
+//        Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.username(), loginRequest.password());
+//        Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
+//        return ResponseEntity.ok().build();
+//    }
 
     public record LoginRequest(String username, String password) {
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
 }

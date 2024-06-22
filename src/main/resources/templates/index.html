@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebars.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.dataTables.min.css}">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
-<h1>Hola!!!!!!</h1>
+<svg th:replace="~{fragments/sidebar :: svgIcons}"></svg>
+<main>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="divider"></div>
+    <div class="container overflow-auto">
+        <h1>Hola!!!!!!</h1>
+    </div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        navLinks.forEach(function(link) {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            } else {
+                link.classList.add('link-dark');
+            }
+        });
+    });
+</script>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/moment.min.js}"></script>
+<script th:src="@{/js/dataTables.min.js}"></script>
 </body>
 </html>

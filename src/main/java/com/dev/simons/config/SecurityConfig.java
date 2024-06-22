@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/index", true)
+                        .defaultSuccessUrl("/inicio", true)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
