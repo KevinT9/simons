@@ -20,7 +20,44 @@
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
     <div class="divider"></div>
     <div class="container overflow-auto">
-
+        <div class="container mt-5">
+            <h2>Formulario de Proyecto</h2>
+            <form id="proyectoForm" method="post">
+                <input type="hidden" id="proyectoId" name="id">
+                <input type="hidden" id="actionForm" value="guardar">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                        <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                        <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="distrito" class="form-label">Distrito</label>
+                        <input type="text" class="form-control" id="distrito" name="distrito" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
     </div>
 </main>
 <script>
