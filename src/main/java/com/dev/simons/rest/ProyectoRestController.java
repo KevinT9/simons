@@ -7,7 +7,6 @@ import com.dev.simons.model.dto.ProyectoDTO;
 import com.dev.simons.repository.ProyectoRepository;
 import com.dev.simons.repository.ResponsableRepository;
 import com.dev.simons.service.ClienteService;
-import com.dev.simons.service.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

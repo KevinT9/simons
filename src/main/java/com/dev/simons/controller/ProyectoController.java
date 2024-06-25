@@ -2,7 +2,6 @@ package com.dev.simons.controller;
 
 import com.dev.simons.repository.ProyectoRepository;
 import com.dev.simons.repository.ResponsableRepository;
-import com.dev.simons.service.ClienteService;
 import com.dev.simons.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

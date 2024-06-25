@@ -1,6 +1,5 @@
 package com.dev.simons.model.dto;
 
-import com.dev.simons.model.Responsable;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
