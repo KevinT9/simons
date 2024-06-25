@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>SIMONS - Proyecto</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/sidebars.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.dataTables.min.css}">
@@ -55,17 +56,324 @@
                         <input type="text" class="form-control" id="direccion" name="direccion" required>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="responsable" class="form-label">Responsable</label>
+                        <select class="form-select" id="responsable" name="responsable" required>
+                            <option value="">Selecciona...</option>
+                            <option th:each="responsable : ${responsables}" th:value="${responsable.getId()}"
+                                    th:text="${responsable.getNombre()} + ' ' + ${responsable.getApellido()}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-cliente">
+                    <h3>Datos del Cliente</h3>
+                    <input type="hidden" id="id-cliente" name="id-cliente">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="dni" name="dni" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="ruc" class="form-label">RUC</label>
+                            <input type="text" class="form-control" id="ruc" name="ruc">
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label">Buscar el cliente por DNI o RUC: </label>
+                            <button class="btn btn-success form-control" id="buscar-cliente">Buscar cliente</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nombreCliente" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="apellidoCliente" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellidoCliente" name="apellidoCliente"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="direccionCliente" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccionCliente" name="direccionCliente"
+                                   required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="sexo" class="form-label">Sexo</label>
+                            <select class="form-select" id="sexo" name="sexo" required>
+                                <option value="">Selecciona...</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
+                                   required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <select class="form-select" id="tipo" name="tipo" required>
+                                <option value="">Selecciona...</option>
+                                <option value="Masculino">Natural</option>
+                                <option value="Femenino">Jurídica</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
         </div>
     </div>
 </main>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+
+    document.getElementById('proyectoForm').addEventListener('submit', function (e) {
+        e.preventDefault()
+        let action = document.getElementById('actionForm').value
+        let proyectoId = document.getElementById('proyectoId').value
+        let nombre = document.getElementById('nombre').value
+        let descripcion = document.getElementById('descripcion').value
+        let fechaInicio = document.getElementById('fechaInicio').value
+        let fechaFin = document.getElementById('fechaFin').value
+        let distrito = document.getElementById('distrito').value
+        let direccion = document.getElementById('direccion').value
+        let responsable = document.getElementById('responsable').value
+        let idCliente = document.getElementById('id-cliente').value
+        let dni = document.getElementById('dni').value
+        let ruc = document.getElementById('ruc').value
+        let nombreCliente = document.getElementById('nombreCliente').value
+        let apellidoCliente = document.getElementById('apellidoCliente').value
+        let email = document.getElementById('email').value
+        let telefono = document.getElementById('telefono').value
+        let direccionCliente = document.getElementById('direccionCliente').value
+        let sexo = document.getElementById('sexo').value
+        let fechaNacimiento = document.getElementById('fechaNacimiento').value
+        let tipo = document.getElementById('tipo').value
+
+        if (nombre === '' || descripcion === '' || fechaInicio === '' || fechaFin === '' || distrito === '' ||
+            direccion === '' || responsable === '' || nombreCliente === '' ||
+            apellidoCliente === '' || email === '' || telefono === '' || direccionCliente === '' ||
+            sexo === '' || fechaNacimiento === '' || tipo === '') {
+
+            alert('Todos los campos son obligatorios')
+            return
+        }
+
+        if (fechaInicio > fechaFin) {
+            alert('La fecha de inicio no puede ser mayor a la fecha de fin')
+            return
+        }
+
+        // ruc o dni son obligatorios
+        if (dni === '' && ruc === '') {
+            alert('Ingrese el DNI o RUC del cliente')
+            return
+        }
+
+        if (action === 'editar' && proyectoId === '') {
+            alert('No se ha seleccionado un proyecto para actualizar')
+            return
+        }
+
+        if (action === 'guardar') {
+            proyectoId = null
+        }
+
+        // Generar el json con los datos del formulario
+        // Estructura del json a enviar: {datos del proyecto, cliente: {datos del cliente}}
+        let data = {
+            id: proyectoId,
+            nombre: nombre,
+            descripcion: descripcion,
+            fechaInicio: fechaInicio,
+            fechaFin: fechaFin,
+            distrito: distrito,
+            direccion: direccion,
+            responsableId: responsable,
+            cliente: {
+                id: idCliente,
+                dni: dni,
+                ruc: ruc,
+                nombre: nombreCliente,
+                apellido: apellidoCliente,
+                email: email,
+                telefono: telefono,
+                direccion: direccionCliente,
+                sexo: sexo,
+                fechaNacimiento: fechaNacimiento,
+                tipo: tipo
+            }
+        }
+
+        // Hacer el fetch
+        fetch(`./api/proyectos/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else if (response.status === 400) {
+                    return response.text().then(error => {
+                        alert(error)
+                    })
+                } else {
+                    alert('Ocurrió un error en el servidor')
+                }
+            })
+            .then(data => {
+                if (data) {
+                    alert('Proyecto guardado correctamente')
+                    document.getElementById('proyectoForm').reset()
+                }
+            })
+            .catch(error => alert(error.message))
+    })
+
+    document.getElementById('buscar-cliente').addEventListener('click', function (e) {
+        e.preventDefault()
+        let dni = document.getElementById('dni').value
+        let ruc = document.getElementById('ruc').value
+
+        if (dni === '' && ruc === '') {
+            alert('Ingrese el DNI o RUC del cliente')
+            return
+        }
+
+        if (dni !== '') {
+            // Validaciones del DNI en el frontend
+            if (dni.length !== 8) {
+                alert("El DNI debe tener 8 dígitos");
+                return;
+            }
+
+            if (!/^\d+$/.test(dni)) {
+                alert("El DNI debe ser numérico");
+                return;
+            }
+
+            const dniNumber = parseInt(dni, 8);
+            if (dniNumber < 0) {
+                alert("El DNI debe ser positivo");
+                return;
+            }
+
+            if (dniNumber > 99999999) {
+                alert("El DNI debe ser menor a 99999999");
+                return;
+            }
+
+            fetch(`./api/clientes/dni/${dni}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 400) {
+                        return response.text().then(error => {
+                            alert(error);
+                        });
+                    } else if (response.status === 404) {
+                        alert("Cliente no existe")
+                    } else {
+                        alert("Ocurrió un error en el servidor")
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        document.getElementById('id-cliente').value = data.id
+                        document.getElementById('nombreCliente').value = data.nombre
+                        document.getElementById('apellidoCliente').value = data.apellido
+                        document.getElementById('email').value = data.email
+                        document.getElementById('telefono').value = data.telefono
+                        document.getElementById('direccionCliente').value = data.direccion
+                        document.getElementById('sexo').value = data.sexo
+                        document.getElementById('fechaNacimiento').value = data.fechaNacimiento
+                        document.getElementById('tipo').value = data.tipo
+                    } else {
+                        alert('Cliente no encontrado')
+                    }
+                })
+        } else {
+            // Validaciones del RUC en el frontend
+            if (ruc.length !== 11) {
+                alert("El RUC debe tener 11 dígitos");
+                return;
+            }
+
+            if (!/^\d+$/.test(ruc)) {
+                alert("El RUC debe ser numérico");
+                return;
+            }
+
+            const rucNumber = parseInt(ruc, 10);
+            if (rucNumber < 0) {
+                alert("El RUC debe ser positivo");
+                return;
+            }
+
+            if (rucNumber > 99999999999) {
+                alert("El RUC debe ser menor a 99999999999");
+                return;
+            }
+
+            fetch(`./api/clientes/ruc/${ruc}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 400) {
+                        return response.text().then(error => {
+                            alert(error);
+                        });
+                    } else if (response.status === 404) {
+                        alert("Cliente no existe")
+                    } else {
+                        alert("Ocurrió un error en el servidor")
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        document.getElementById('id-cliente').value = data.id
+                        document.getElementById('nombreCliente').value = data.nombre
+                        document.getElementById('apellidoCliente').value = data.apellido
+                        document.getElementById('email').value = data.email
+                        document.getElementById('telefono').value = data.telefono
+                        document.getElementById('direccionCliente').value = data.direccion
+                        document.getElementById('sexo').value = data.sexo
+                        document.getElementById('fechaNacimiento').value = data.fechaNacimiento
+                        document.getElementById('tipo').value = data.tipo
+                    } else {
+                        alert('Cliente no encontrado')
+                    }
+                })
+                .catch(error => alert(error.message))
+        }
+    })
+
+
+    document.addEventListener('DOMContentLoaded', function () {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('.nav-link');
 
-        navLinks.forEach(function(link) {
+        navLinks.forEach(function (link) {
             if (link.getAttribute('href') === currentPath) {
                 link.classList.add('active');
             } else {

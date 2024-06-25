@@ -1,37 +1,22 @@
-package com.dev.simons.model;
+package com.dev.simons.model.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.dev.simons.model.Responsable;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@Entity
-@Table
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@Builder
-@AllArgsConstructor
-public class Proyecto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+@Data
+public class ProyectoDTO {
     private Long id;
-
     private String nombre;
     private String descripcion;
     private String estado;
     private String prioridad;
     private String distrito;
     private String direccion;
-    @ManyToOne
-    @JoinColumn(name = "responsable_id", referencedColumnName = "id", nullable = false)
-    private Responsable responsable;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id", nullable = false)
-    private Cliente cliente;
+    private Long responsableId;
+    private ClienteDTO cliente;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaInicio;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -40,5 +25,4 @@ public class Proyecto {
     private LocalDate fechaCreacion;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaActualizacion;
-
 }

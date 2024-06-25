@@ -1,23 +1,12 @@
-package com.dev.simons.model;
+package com.dev.simons.model.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@Table
-@Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@Builder
-@AllArgsConstructor
-public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+@Data
+public class ClienteDTO {
     private Long id;
     private String nombre;
     private String apellido;
