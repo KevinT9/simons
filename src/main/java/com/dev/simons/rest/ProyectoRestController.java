@@ -49,7 +49,7 @@ public class ProyectoRestController {
         Proyecto proyecto = Proyecto.builder()
                 .nombre(proyectoDTO.getNombre())
                 .descripcion(proyectoDTO.getDescripcion())
-                .estado(proyectoDTO.getEstado())
+                .estado("EN PROCESO")
                 .prioridad(proyectoDTO.getPrioridad())
                 .distrito(proyectoDTO.getDistrito())
                 .direccion(proyectoDTO.getDireccion())
