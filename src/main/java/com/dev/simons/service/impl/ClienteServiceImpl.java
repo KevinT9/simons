@@ -21,10 +21,14 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente obtenerOcrearCliente(ClienteDTO clienteDTO) {
-        if (clienteDTO.getId() != null) {
-            return clienteRepository.findById(clienteDTO.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
-        } else {
+        // Buscar el cliente por DNI O RUC
+        Optional<Cliente> cliente = clienteRepository.findByDni(clienteDTO.getDni());
+        if (cliente.isEmpty()) {
+            cliente = clienteRepository.findByRuc(clienteDTO.getRuc());
+        }
+
+        // Si el cliente no existe, crearlo
+        if (cliente.isEmpty()) {
             Cliente nuevoCliente = Cliente.builder()
                     .nombre(clienteDTO.getNombre())
                     .apellido(clienteDTO.getApellido())
@@ -38,7 +42,10 @@ public class ClienteServiceImpl implements ClienteService {
                     .tipo(clienteDTO.getTipo())
                     .build();
             return clienteRepository.save(nuevoCliente);
+        } else {
+            return cliente.get();
         }
+
     }
 
     @Override

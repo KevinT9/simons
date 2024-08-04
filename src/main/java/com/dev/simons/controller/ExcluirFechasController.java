@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping
 @Slf4j
-public class CalendarioController {
+public class ExcluirFechasController {
 
     private final UsuarioService usuarioService;
 
-    public CalendarioController(UsuarioService usuarioService) {
+    public ExcluirFechasController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/calendario")
+    @GetMapping("/excluir-fechas")
     public String calendario(Model model) {
         model.addAttribute("usuario", usuarioService.getAuthenticatedUser());
-        return "calendario";
+        return "excluir-fechas";
     }
 }
