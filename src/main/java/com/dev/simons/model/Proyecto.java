@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -21,6 +23,7 @@ public class Proyecto {
     private Long id;
 
     private String nombre;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
     private String estado;
     private String prioridad;
@@ -40,5 +43,13 @@ public class Proyecto {
     private LocalDate fechaCreacion;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaActualizacion;
+
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<FaseProyecto> fases = new ArrayList<>();
+
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<ExcluirFecha> fechasExcluidas = new ArrayList<>();
 
 }

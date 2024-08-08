@@ -140,7 +140,7 @@
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
         </div>
-        <div class="container mt-5">
+        <div class="container mt-5 pb-5">
             <div class="table-responsive">
                 <table id="proyectosTable" class="table table-striped table-bordered">
                     <thead>
@@ -172,16 +172,48 @@
                             th:data-id-responsable="${proyecto.responsable.id}"></td>
                         <td>
                             <button id="editar" class="btn btn-primary editar-btn">Editar</button>
-                            <a th:href="@{'/responsable/eliminar/' + ${proyecto.id}}" class="btn btn-danger">Eliminar</a>
+                            <a th:href="@{'/api/proyectos/eliminar/' + ${proyecto.id}}" class="btn-eliminar btn btn-danger" th:data-id-proyecto="${proyecto.id}">Eliminar</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="footer" style="position: fixed;bottom: 0;width: 100%;background-color: #f8f9fa;padding: 10px;text-align: center;">
+            <div class="footer-content" style="display: flex;width: 100%;">
+                <div class="left" style="text-align: left;">
+                    <span style="font-weight: bold">MERAKI GROUP</span>@2024|Todos los derechos reservados
+                </div>
+                <div class="right" style="text-align: right; padding-left: 40%">
+                    Creado por <span style="font-weight: bold">SIMONS</span>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <script>
+
+    // Implementar el eliminar proyecto
+    document.querySelectorAll('.btn-eliminar').forEach(function (button) {
+        button.addEventListener('click', function (e) {
+            e.preventDefault()
+            let idProyecto = button.getAttribute('data-id-proyecto')
+            if (confirm('¿Está seguro de eliminar el proyecto?')) {
+                fetch(`./api/proyectos/eliminar/${idProyecto}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Proyecto eliminado correctamente')
+                            location.reload()
+                        } else {
+                            throw new Error('Ocurrió un error en el servidor')
+                        }
+                    })
+                    .catch(error => alert(`Error: ${error.message}`))
+            }
+        })
+    })
 
     document.querySelectorAll('.editar-btn').forEach(function(button) {
         button.addEventListener('click', function() {
@@ -311,22 +343,20 @@
         })
             .then(response => {
                 if (response.ok) {
-                    return response.json()
+                    // Si la respuesta es OK, pero no retorna JSON
+                    alert('Proyecto guardado correctamente');
+                    document.getElementById('proyectoForm').reset();
+                    // RELOAD PAGINA
+                    location.reload();
                 } else if (response.status === 400) {
                     return response.text().then(error => {
-                        alert(error)
-                    })
+                        throw new Error(error);
+                    });
                 } else {
-                    alert('Ocurrió un error en el servidor')
+                    throw new Error('Ocurrió un error en el servidor');
                 }
             })
-            .then(data => {
-                if (data) {
-                    alert('Proyecto guardado correctamente')
-                    document.getElementById('proyectoForm').reset()
-                }
-            })
-            .catch(error => alert(error.message))
+            .catch(error => alert(`Error: ${error.message}`));
     })
 
     document.getElementById('buscar-cliente').addEventListener('click', buscarCliente)

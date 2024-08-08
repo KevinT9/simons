@@ -12,6 +12,10 @@
         body {
             background-color: #f8f9fa;
         }
+
+        .object-fit-cover {
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -19,13 +23,12 @@
 <main>
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
     <div class="divider"></div>
-    <div class="container overflow-auto">
-        <h1>SIMONS</h1>
-
-        <a th:href="@{/responsable}" type="button" class="btn btn-primary">Responsable</a>
-        <a th:href="@{/proyecto}" type="button" class="btn btn-primary">Proyecto</a>
-        <a th:href="@{/calendario}" type="button" class="btn btn-primary">Calendario</a>
-        <a href="#" type="button" class="btn btn-secondary">Facturas</a>
+    <div class="container overflow-auto p-0" style="
+    max-width: 3000px;
+">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <img th:src="@{/img/fondo.png}" alt="fondo" class="img-fluid w-100 h-100 object-fit-cover">
+        </div>
     </div>
 </main>
 <script>

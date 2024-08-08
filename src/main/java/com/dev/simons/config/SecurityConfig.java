@@ -84,6 +84,9 @@ public class SecurityConfig {
     }
 
     public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("123456789@"));
+        System.out.println(new BCryptPasswordEncoder().encode("123456@123"));
+        System.out.println(new BCryptPasswordEncoder().encode("pureba123"));
         System.out.println(new BCryptPasswordEncoder().encode("admin"));
     }
 
